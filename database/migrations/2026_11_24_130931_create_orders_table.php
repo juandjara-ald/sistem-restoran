@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->string('nomor_meja');
+            $table->string('nama_pelanggan');
+            $table->integer('total_harga')->default(0);
+            $table->enum('status', ['pending', 'dimasak', 'selesai', 'batal'])->default('pending');
+            $table->enum('metode_pembayaran', ['tunai', 'qris', 'debit'])->default('tunai');
             $table->timestamps();
         });
     }
